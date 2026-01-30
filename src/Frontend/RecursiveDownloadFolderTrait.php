@@ -158,9 +158,9 @@ trait RecursiveDownloadFolderTrait
 
         /** @psalm-suppress InvalidPropertyAssignmentValue */
         $this->cssID = [
-            $this->cssID[0],
+            $this->cssID[0] ?? '',
             trim(
-                $this->cssID[1]
+                $this->cssID[1] ?? ''
                 . ' hofff-recursive-download-folder-'
                 . ($this->recursiveDownloadFolderMode ?: 'toggleable'),
             ),
@@ -332,7 +332,7 @@ trait RecursiveDownloadFolderTrait
                 case 'file':
                     $zipArchive->addFile(
                         $this->getProjectDir() . '/' . $element['model']->path,
-                        substr((string) $element['model']->path, strlen($rootPath) + 1),
+                        ltrim(substr((string) $element['model']->path, strlen($rootPath) + 1), '/'),
                     );
                     break;
 
